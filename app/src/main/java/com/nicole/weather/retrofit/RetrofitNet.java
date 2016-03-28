@@ -6,16 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.nicole.weather.utils.Config;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -26,29 +17,24 @@ public class RetrofitNet {
     private static final String TAG = RetrofitNet.class.getSimpleName();
 
     private static ApiInterface mApiInterface;
+    private static ApiInterface getmApiInterface ;
+    private static String baseUrl = "https://api.heweather.com/x3/";
 
-    private static Retrofit mRetrofit;
 
-    private OkHttpClient mOkHttpClient;
 
-    private Context mContext;
 
-    public static void initRetrofitNet(Context context) {
-        Executor executor = Executors.newCachedThreadPool();
-        Gson gson = new GsonBuilder().create();
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(Config.API_HOST)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .callbackExecutor(executor)
-                .build();
 
-        mApiInterface = mRetrofit.create(ApiInterface.class);
-    }
 
-    public static ApiInterface getApiService(Context context) {
-        if (mApiInterface != null) return mApiInterface;
-        initRetrofitNet(context);
-        return getApiService(context);
+    public static ApiInterface getClient() {
+
+        if (getmApiInterface == null) {
+            Retrofit client = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            getmApiInterface = client.create(ApiInterface.class);
+        }
+        return getmApiInterface;
     }
 
     public static void disposeFailureInfo(Throwable t, Context context, View view) {

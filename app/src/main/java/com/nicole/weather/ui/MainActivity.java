@@ -3,15 +3,20 @@ package com.nicole.weather.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.nicole.weather.R;
+import com.nicole.weather.modle.WeatherAPI;
+import com.nicole.weather.retrofit.ApiInterface;
+import com.nicole.weather.retrofit.RetrofitNet;
 import com.nicole.weather.utils.Config;
-import com.nicole.weather.utils.logger.Logger;
+import com.nicole.weather.utils.OtherUtils;
 
-public class MainActivity extends AppCompatActivity implements AMapLocationListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity   {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -24,19 +29,53 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
 
     private boolean isLoaction = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mConfig=Config.getInstance();
-        location();
+        mConfig = Config.getInstance();
+       // location();
+
+        loadDataWithNetWork();
+
+        if (OtherUtils.isNetworkConnected(this)) {
+           // location();
+            if (isLoaction) {
+                onRefresh();
+            }
+        }
 
 
     }
 
-    /**
+    private void onRefresh() {
+        loadDataWithNetWork();
+    }
+
+    private void loadDataWithNetWork() {
+        String cityName = mConfig.getString(Config.CITY_NAME, "北京");
+        ApiInterface apiInterface= RetrofitNet.getClient();
+        Call<WeatherAPI> call=apiInterface.mWeatherApi(cityName,Config.HE_API_KEY);
+        call.enqueue(new Callback<WeatherAPI>() {
+            @Override
+            public void onResponse(Call<WeatherAPI> call, Response<WeatherAPI> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<WeatherAPI> call, Throwable t) {
+
+            }
+
+        });
+
+
+    }
+
+/*    *//**
      * 高德定位
-     */
+     *//*
     private void location() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
@@ -82,13 +121,13 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
                 //aMapLocation.getStreetNum();//街道门牌号信息
                 //aMapLocation.getCityCode();//城市编码
                 //aMapLocation.getAdCode();//地区编码
-                mConfig.putString(Config.CITY_NAME,aMapLocation.getCity());
-
-               Logger.t(Config.TAG).d(TAG,aMapLocation.getCity());
+                mConfig.putString(Config.CITY_NAME, aMapLocation.getCity());
+                 isLoaction=true;
+                Logger.t(Config.TAG).d(TAG, aMapLocation.getCity());
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Logger.t(TAG).d("location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
             }
         }
-    }
+    }*/
 }

@@ -74,8 +74,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'io.reactivex:rxandroid:1.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile files('libs/AMap_Location_v2.3.0_20160112.jar')
+
+    compile 'com.github.orhanobut:logger:1.12'
 }

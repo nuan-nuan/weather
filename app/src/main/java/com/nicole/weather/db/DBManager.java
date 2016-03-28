@@ -6,7 +6,7 @@ import android.os.Environment;
 
 import com.nicole.weather.R;
 import com.nicole.weather.utils.Config;
-import com.nicole.weather.utils.logger.Logger;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;

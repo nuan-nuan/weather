@@ -3,9 +3,13 @@ package com.nicole.weather.modle;
 import java.io.Serializable;
 
 /**
- * Created by kevin .
+ * Created by hugo on 2015/9/30 0030.
  */
-public class Province implements Serializable {
+public class Province  implements Serializable{
+
     public String ProName;
     public int ProSort;
+
+
+
 }
