@@ -6,20 +6,20 @@ android {
         kevin_weather_release {
             keyAlias 'kevin'
             keyPassword 'xfjsnb7890!@'
-            // storeFile file('/Users/kevin/kevin/weather/kevin_weather_release.jks')
-            storeFile file('/home/kevin/code/kevin/weather/kevin_weather_release.jks')
+             storeFile file('/Users/kevin/kevin/weather/kevin_weather_release.jks')
+            //storeFile file('/home/kevin/code/kevin/weather/kevin_weather_release.jks')
             storePassword 'xfjsnb7890!@'
         }
         debug {
             keyAlias 'kevin'
             keyPassword 'xfjsnb7890!@'
-            //storeFile file('/Users/kevin/kevin/weather/kevin_weather_release.jks')
-            storeFile file('/home/kevin/code/kevin/weather/kevin_weather_release.jks')
+            storeFile file('/Users/kevin/kevin/weather/kevin_weather_release.jks')
+            //storeFile file('/home/kevin/code/kevin/weather/kevin_weather_release.jks')
             storePassword 'xfjsnb7890!@'
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.nicole.weather"
         minSdkVersion 14
